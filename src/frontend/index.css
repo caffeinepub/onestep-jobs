@@ -1,0 +1,157 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Cabinet Grotesk";
+  src: url("/assets/fonts/CabinetGrotesk-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Bricolage Grotesque";
+  src: url("/assets/fonts/BricolageGrotesque-Variable.woff2") format("woff2");
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "General Sans";
+  src: url("/assets/fonts/GeneralSans-Variable.woff2") format("woff2");
+  font-weight: 200 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist Mono";
+  src: url("/assets/fonts/GeistMono-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+
+    /* Background: near-white with a cool tint */
+    --background: 0.978 0.003 240;
+    --foreground: 0.15 0.025 255;
+
+    /* Card: crisp white */
+    --card: 1 0 0;
+    --card-foreground: 0.15 0.025 255;
+
+    --popover: 1 0 0;
+    --popover-foreground: 0.15 0.025 255;
+
+    /* Primary: deep navy-indigo — authoritative, professional */
+    --primary: 0.22 0.06 265;
+    --primary-foreground: 0.98 0 0;
+
+    /* Secondary: soft slate tint */
+    --secondary: 0.93 0.01 255;
+    --secondary-foreground: 0.22 0.06 265;
+
+    /* Muted */
+    --muted: 0.93 0.01 255;
+    --muted-foreground: 0.5 0.02 255;
+
+    /* Accent: electric teal — one-step forward energy */
+    --accent: 0.87 0.065 185;
+    --accent-foreground: 0.14 0.05 185;
+
+    /* Accent vivid for CTA highlights */
+    --accent-vivid: 0.52 0.16 185;
+
+    /* Status colors */
+    --status-pending: 0.72 0.14 72;
+    --status-pending-bg: 0.97 0.04 72;
+    --status-approved: 0.52 0.16 185;
+    --status-approved-bg: 0.91 0.07 185;
+    --status-rejected: 0.58 0.24 27;
+    --status-rejected-bg: 0.97 0.04 27;
+
+    --destructive: 0.58 0.24 27;
+    --destructive-foreground: 0.985 0 0;
+
+    --border: 0.88 0.012 255;
+    --input: 0.88 0.012 255;
+    --ring: 0.52 0.16 185;
+
+    --chart-1: 0.646 0.222 41.116;
+    --chart-2: 0.6 0.118 184.704;
+    --chart-3: 0.398 0.07 227.392;
+    --chart-4: 0.828 0.189 84.429;
+    --chart-5: 0.769 0.188 70.08;
+
+    --sidebar: 0.978 0.003 240;
+    --sidebar-foreground: 0.15 0.025 255;
+    --sidebar-primary: 0.22 0.06 265;
+    --sidebar-primary-foreground: 0.98 0 0;
+    --sidebar-accent: 0.93 0.01 255;
+    --sidebar-accent-foreground: 0.22 0.06 265;
+    --sidebar-border: 0.88 0.012 255;
+    --sidebar-ring: 0.52 0.16 185;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Bricolage Grotesque", "Cabinet Grotesk", sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+}
+
+/* Grid background texture for headers */
+.grid-texture {
+  background-image:
+    linear-gradient(oklch(var(--primary) / 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, oklch(var(--primary) / 0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Decorative dot pattern */
+.dot-pattern {
+  background-image: radial-gradient(oklch(var(--accent-vivid) / 0.15) 1.5px, transparent 1.5px);
+  background-size: 24px 24px;
+}
+
+/* Step indicator animation */
+@keyframes step-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.step-pulse {
+  animation: step-pulse 2s ease-in-out infinite;
+}
+
+/* Hero gradient mesh */
+.hero-mesh {
+  background:
+    radial-gradient(ellipse at 80% 20%, oklch(var(--accent) / 0.25) 0%, transparent 60%),
+    radial-gradient(ellipse at 20% 80%, oklch(var(--primary) / 0.08) 0%, transparent 50%),
+    oklch(var(--card));
+}
+
+/* Teal glow for CTA */
+.cta-glow {
+  box-shadow: 0 0 0 0 oklch(var(--accent-vivid) / 0.4);
+}
+
+.cta-glow:hover {
+  box-shadow: 0 4px 24px oklch(var(--accent-vivid) / 0.35);
+}
