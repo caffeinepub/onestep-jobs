@@ -16,9 +16,10 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ["Bricolage Grotesque", "Cabinet Grotesk", "sans-serif"],
-        heading: ["Cabinet Grotesk", "sans-serif"],
-        sans: ["General Sans", "sans-serif"],
+        display: ["Bricolage Grotesque", "sans-serif"],
+        body: ["Outfit", "sans-serif"],
+        heading: ["Bricolage Grotesque", "sans-serif"],
+        sans: ["Outfit", "sans-serif"],
         mono: ["Geist Mono", "monospace"],
       },
       colors: {
@@ -81,6 +82,8 @@ export default {
       },
       boxShadow: {
         xs: "0 1px 2px 0 rgba(0,0,0,0.05)",
+        glow: "0 0 20px oklch(0.62 0.22 270 / 0.4)",
+        "glow-accent": "0 0 20px oklch(0.78 0.22 165 / 0.4)",
       },
       keyframes: {
         "accordion-down": {

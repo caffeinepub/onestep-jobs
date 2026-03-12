@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import type { Candidate } from "../backend.d";
+import type { Candidate, JobCategory } from "../backend.d";
 import { useActor } from "./useActor";
 
 export function useGetCandidates() {
@@ -26,6 +26,18 @@ export function useIsCallerAdmin() {
   });
 }
 
+export function useGetJobCategories() {
+  const { actor, isFetching: actorFetching } = useActor();
+  return useQuery<JobCategory[]>({
+    queryKey: ["jobCategories"],
+    queryFn: async () => {
+      if (!actor) return [];
+      return actor.getJobCategories();
+    },
+    enabled: !!actor && !actorFetching,
+  });
+}
+
 export function useApproveCandidate() {
   const { actor } = useActor();
   const queryClient = useQueryClient();
@@ -47,6 +59,20 @@ export function useRejectCandidate() {
     mutationFn: async (candidateId: bigint) => {
       if (!actor) throw new Error("Actor not available");
       return actor.rejectCandidate(candidateId);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["candidates"] });
+    },
+  });
+}
+
+export function useSetPendingCandidate() {
+  const { actor } = useActor();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (candidateId: bigint) => {
+      if (!actor) throw new Error("Actor not available");
+      return actor.setPendingCandidate(candidateId);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["candidates"] });

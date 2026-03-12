@@ -44,8 +44,14 @@ function validate(data: FormData, file: File | null): FormErrors {
   if (!data.name.trim()) errors.name = "Full name is required";
   if (!data.phone.trim()) {
     errors.phone = "Phone number is required";
-  } else if (!/^[\d\s+\-().]{7,20}$/.test(data.phone.trim())) {
-    errors.phone = "Enter a valid phone number";
+  } else {
+    // Accept Indian mobile numbers: optional +91 or 0 prefix, then 10 digits starting with 6-9
+    const digits = data.phone.trim().replace(/[\s\-()]/g, "");
+    const indian = /^(?:\+91|91|0)?([6-9]\d{9})$/.test(digits);
+    if (!indian) {
+      errors.phone =
+        "Enter a valid Indian mobile number (e.g. +91 98765 43210)";
+    }
   }
   if (!data.email.trim()) {
     errors.email = "Email address is required";
@@ -278,7 +284,7 @@ export function RegistrationPage() {
                             id="phone"
                             data-ocid="register.phone_input"
                             type="tel"
-                            placeholder="e.g. +1 (555) 000-0000"
+                            placeholder="e.g. +91 98765 43210"
                             value={formData.phone}
                             onChange={(e) =>
                               setFormData((prev) => ({

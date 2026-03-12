@@ -24,6 +24,18 @@ export const UserRole = IDL.Variant({
   'user' : IDL.Null,
   'guest' : IDL.Null,
 });
+export const FetchJobsByCategoryParams = IDL.Record({
+  'jobType' : IDL.Opt(IDL.Text),
+  'category' : IDL.Opt(IDL.Text),
+  'location' : IDL.Opt(IDL.Text),
+});
+export const Job = IDL.Record({
+  'title' : IDL.Text,
+  'jobType' : IDL.Text,
+  'description' : IDL.Text,
+  'category' : IDL.Text,
+  'location' : IDL.Text,
+});
 export const UserProfile = IDL.Record({ 'name' : IDL.Text });
 export const Candidate = IDL.Record({
   'id' : IDL.Nat,
@@ -32,6 +44,11 @@ export const Candidate = IDL.Record({
   'email' : IDL.Text,
   'resumeBlobId' : IDL.Text,
   'phone' : IDL.Text,
+});
+export const JobCategory = IDL.Record({
+  'icon' : IDL.Text,
+  'jobs' : IDL.Vec(Job),
+  'name' : IDL.Text,
 });
 
 export const idlService = IDL.Service({
@@ -64,9 +81,15 @@ export const idlService = IDL.Service({
   '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
   'approveCandidate' : IDL.Func([IDL.Nat], [], []),
   'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
+  'fetchJobsByCategory' : IDL.Func(
+      [FetchJobsByCategoryParams],
+      [IDL.Vec(Job)],
+      ['query'],
+    ),
   'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
   'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
   'getCandidates' : IDL.Func([], [IDL.Vec(Candidate)], ['query']),
+  'getJobCategories' : IDL.Func([], [IDL.Vec(JobCategory)], ['query']),
   'getUserProfile' : IDL.Func(
       [IDL.Principal],
       [IDL.Opt(UserProfile)],
@@ -80,6 +103,7 @@ export const idlService = IDL.Service({
     ),
   'rejectCandidate' : IDL.Func([IDL.Nat], [], []),
   'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
+  'setPendingCandidate' : IDL.Func([IDL.Nat], [], []),
 });
 
 export const idlInitArgs = [];
@@ -101,6 +125,18 @@ export const idlFactory = ({ IDL }) => {
     'user' : IDL.Null,
     'guest' : IDL.Null,
   });
+  const FetchJobsByCategoryParams = IDL.Record({
+    'jobType' : IDL.Opt(IDL.Text),
+    'category' : IDL.Opt(IDL.Text),
+    'location' : IDL.Opt(IDL.Text),
+  });
+  const Job = IDL.Record({
+    'title' : IDL.Text,
+    'jobType' : IDL.Text,
+    'description' : IDL.Text,
+    'category' : IDL.Text,
+    'location' : IDL.Text,
+  });
   const UserProfile = IDL.Record({ 'name' : IDL.Text });
   const Candidate = IDL.Record({
     'id' : IDL.Nat,
@@ -109,6 +145,11 @@ export const idlFactory = ({ IDL }) => {
     'email' : IDL.Text,
     'resumeBlobId' : IDL.Text,
     'phone' : IDL.Text,
+  });
+  const JobCategory = IDL.Record({
+    'icon' : IDL.Text,
+    'jobs' : IDL.Vec(Job),
+    'name' : IDL.Text,
   });
   
   return IDL.Service({
@@ -141,9 +182,15 @@ export const idlFactory = ({ IDL }) => {
     '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
     'approveCandidate' : IDL.Func([IDL.Nat], [], []),
     'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
+    'fetchJobsByCategory' : IDL.Func(
+        [FetchJobsByCategoryParams],
+        [IDL.Vec(Job)],
+        ['query'],
+      ),
     'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
     'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
     'getCandidates' : IDL.Func([], [IDL.Vec(Candidate)], ['query']),
+    'getJobCategories' : IDL.Func([], [IDL.Vec(JobCategory)], ['query']),
     'getUserProfile' : IDL.Func(
         [IDL.Principal],
         [IDL.Opt(UserProfile)],
@@ -157,6 +204,7 @@ export const idlFactory = ({ IDL }) => {
       ),
     'rejectCandidate' : IDL.Func([IDL.Nat], [], []),
     'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
+    'setPendingCandidate' : IDL.Func([IDL.Nat], [], []),
   });
 };
 

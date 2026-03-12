@@ -18,6 +18,23 @@ export interface Candidate {
   'resumeBlobId' : string,
   'phone' : string,
 }
+export interface FetchJobsByCategoryParams {
+  'jobType' : [] | [string],
+  'category' : [] | [string],
+  'location' : [] | [string],
+}
+export interface Job {
+  'title' : string,
+  'jobType' : string,
+  'description' : string,
+  'category' : string,
+  'location' : string,
+}
+export interface JobCategory {
+  'icon' : string,
+  'jobs' : Array<Job>,
+  'name' : string,
+}
 export interface UserProfile { 'name' : string }
 export type UserRole = { 'admin' : null } |
   { 'user' : null } |
@@ -52,14 +69,17 @@ export interface _SERVICE {
   '_initializeAccessControlWithSecret' : ActorMethod<[string], undefined>,
   'approveCandidate' : ActorMethod<[bigint], undefined>,
   'assignCallerUserRole' : ActorMethod<[Principal, UserRole], undefined>,
+  'fetchJobsByCategory' : ActorMethod<[FetchJobsByCategoryParams], Array<Job>>,
   'getCallerUserProfile' : ActorMethod<[], [] | [UserProfile]>,
   'getCallerUserRole' : ActorMethod<[], UserRole>,
   'getCandidates' : ActorMethod<[], Array<Candidate>>,
+  'getJobCategories' : ActorMethod<[], Array<JobCategory>>,
   'getUserProfile' : ActorMethod<[Principal], [] | [UserProfile]>,
   'isCallerAdmin' : ActorMethod<[], boolean>,
   'registerCandidate' : ActorMethod<[string, string, string, string], bigint>,
   'rejectCandidate' : ActorMethod<[bigint], undefined>,
   'saveCallerUserProfile' : ActorMethod<[UserProfile], undefined>,
+  'setPendingCandidate' : ActorMethod<[bigint], undefined>,
 }
 export declare const idlService: IDL.ServiceClass;
 export declare const idlInitArgs: IDL.Type[];

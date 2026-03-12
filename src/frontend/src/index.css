@@ -1,0 +1,153 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Bricolage Grotesque";
+  src: url("/assets/fonts/BricolageGrotesque[opsz,wdth,wght].woff2")
+    format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Outfit";
+  src: url("/assets/fonts/Outfit[wght].woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --background: 0.12 0.02 250;
+    --foreground: 0.97 0.01 250;
+    --card: 0.16 0.025 255;
+    --card-foreground: 0.97 0.01 250;
+    --popover: 0.16 0.025 255;
+    --popover-foreground: 0.97 0.01 250;
+    --primary: 0.62 0.22 270;
+    --primary-foreground: 0.97 0.01 250;
+    --secondary: 0.2 0.03 255;
+    --secondary-foreground: 0.8 0.05 255;
+    --muted: 0.22 0.02 255;
+    --muted-foreground: 0.6 0.04 255;
+    --accent: 0.82 0.2 165;
+    --accent-foreground: 0.12 0.02 250;
+    --accent-vivid: 0.78 0.22 165;
+    --destructive: 0.65 0.22 25;
+    --destructive-foreground: 0.97 0.01 250;
+    --border: 0.24 0.03 260;
+    --input: 0.24 0.03 260;
+    --ring: 0.62 0.22 270;
+    --radius: 0.75rem;
+    --status-approved: 0.72 0.18 150;
+    --status-approved-bg: 0.18 0.04 150;
+    --status-rejected: 0.65 0.22 25;
+    --status-rejected-bg: 0.18 0.05 25;
+    --status-pending: 0.78 0.18 55;
+    --status-pending-bg: 0.18 0.04 55;
+    --chart-1: 0.62 0.22 270;
+    --chart-2: 0.82 0.2 165;
+    --chart-3: 0.78 0.18 55;
+    --chart-4: 0.65 0.22 25;
+    --chart-5: 0.72 0.18 150;
+    --sidebar: 0.14 0.02 252;
+    --sidebar-foreground: 0.97 0.01 250;
+    --sidebar-primary: 0.62 0.22 270;
+    --sidebar-primary-foreground: 0.97 0.01 250;
+    --sidebar-accent: 0.2 0.03 255;
+    --sidebar-accent-foreground: 0.8 0.05 255;
+    --sidebar-border: 0.24 0.03 260;
+    --sidebar-ring: 0.62 0.22 270;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    color-scheme: dark;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Outfit", sans-serif;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Bricolage Grotesque", sans-serif;
+  }
+}
+
+@layer utilities {
+  .hero-mesh {
+    background: radial-gradient(
+        ellipse 100% 70% at 50% -10%,
+        oklch(0.28 0.1 270 / 0.55) 0%,
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse 60% 50% at 80% 50%,
+        oklch(0.22 0.08 165 / 0.3) 0%,
+        transparent 60%
+      ), oklch(0.12 0.02 250);
+  }
+
+  .cta-glow {
+    box-shadow: 0 0 18px oklch(0.62 0.22 270 / 0.55), 0 0 40px
+      oklch(0.62 0.22 270 / 0.22), inset 0 1px 0 oklch(0.9 0.05 270 / 0.15);
+  }
+
+  .cta-glow:hover {
+    box-shadow: 0 0 28px oklch(0.62 0.22 270 / 0.75), 0 0 60px
+      oklch(0.62 0.22 270 / 0.35);
+  }
+
+  .glass-card {
+    background: oklch(0.16 0.025 255 / 0.75);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid oklch(0.32 0.04 260 / 0.5);
+  }
+
+  .dot-pattern {
+    background-image: radial-gradient(
+      circle,
+      oklch(0.45 0.06 270 / 0.35) 1px,
+      transparent 1px
+    );
+    background-size: 24px 24px;
+  }
+
+  .grid-texture {
+    background-image: linear-gradient(
+        oklch(0.32 0.03 260 / 0.12) 1px,
+        transparent 1px
+      ),
+      linear-gradient(90deg, oklch(0.32 0.03 260 / 0.12) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+}
+
+@keyframes step-pulse-anim {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(1.35);
+  }
+}
+
+.step-pulse {
+  animation: step-pulse-anim 2s ease-in-out infinite;
+  display: inline-block;
+}
